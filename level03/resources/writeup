@@ -1,0 +1,9 @@
+(python -c "print 322424827") | ~/level03
+
+#!/bin/bash
+
+for i in {1..21}
+do
+        python -c "print 322424845 - $i"
+        (python -c "print 322424845 - $i") | ~/level03
+done

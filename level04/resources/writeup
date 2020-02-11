@@ -1,0 +1,2 @@
+/usr/include/linux/prctl.h
+#define PR_SET_PDEATHSIG  1  /* Second arg is a signal */

@@ -2,13 +2,14 @@
 #include <stdio.h>
 #include <time.h>
 
-void test(int nb, int nb2)
+void test(int input, int nb)
 {
     int tmp;
 
-    tmp = nb2 - nb;
-    if (tmp < 0x15)
+    tmp = nb - input;
+    if (tmp <= 0x15)
     {
+        ((void (*)(void))*(tmp << 2 + 0x80489f0))();
     }
 }
 
