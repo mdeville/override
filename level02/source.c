@@ -5,15 +5,15 @@
 
 int main(int argc, char **argv)
 {
-    char password[112];     //filename
-    char pass[48];          //ptr
+    char password[100];     //filename
+    char pass[41];          //ptr
     char username[100];     //format
     FILE *stream;
     size_t ret;
 
-    bzero(username, 13);
-    bzero(pass, 6);
-    bzero(password, 13);
+    bzero(username, 100);
+    bzero(pass, 41);
+    bzero(password, 100);
 
     if ((stream = fopen("/home/users/level03/.pass", "r")) == NULL)
     {
