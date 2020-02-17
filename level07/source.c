@@ -86,6 +86,8 @@ int main(int argc, char **argv, char **envp)
             status = read_number(memory);
         else if (strcmp(cmd, "quit") == 0)
             return (0);
+		else
+			status = 0;
 
         if (status)
             printf(" Completed %s command successfully\n", cmd);
