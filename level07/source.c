@@ -13,19 +13,42 @@ const char prompt[] =   "----------------------------------------------------\n"
                         "   wil has reserved some storage :>                 \n"
                         "----------------------------------------------------\n";
 
-int get_unum(void)
+unsigned int get_unum(void)
 {
+    unsigned int nb;
 
+    fflush(stdout);
+    scanf("%u", &nb);
+    return (nb);
 }
 
-int store_number(char *mem)
+int store_number(unsigned int *mem)
 {
+    unsigned int nb;
+    unsigned int idx;
+
     printf(" Number: ");
-
+    nb = get_unum();
+    printf(" Index: ");
+    idx = get_unum();
+    if ((idx % 3 == 0) || (idx >> 0x18 == 0xb7))
+    {
+        puts(" *** ERROR! ***");
+        puts("   This index is reserved for wil!");
+        puts(" *** ERROR! ***");
+        return (0);
+    }
+    mem[idx] = nb;
+    return (1);
 }
 
-int read_number(char *mem)
+int read_number(unsigned int *mem)
 {
+    unsigned int idx;
+
+    printf(" Index: ");
+    idx = get_unum();
+    printf(" Number at data[%u] is %u\n", idx, mem[idx]);
     return (1);
 }
 
@@ -40,9 +63,9 @@ static inline void clear(char **p)
 
 int main(int argc, char **argv, char **envp)
 {
-    char    memory[400];
-    int     status;
-    char    cmd[20];
+    unsigned int    memory[100];
+    int             status;
+    char            cmd[20];
 
     bzero(cmd, 20);
     bzero(memory, 400);
