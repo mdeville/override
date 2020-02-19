@@ -38,7 +38,7 @@ int store_number(unsigned int *mem)
         puts(" *** ERROR! ***");
         return (0);
     }
-    mem[idx] = nb;
+    *(mem + (idx << 2)) = nb;
     return (1);
 }
 
