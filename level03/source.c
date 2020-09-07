@@ -28,7 +28,7 @@ void test(int input, int key)
 
     tmp = key - input;
     if (tmp <= 21)
-        decrypt(tmp);
+		decrypt(tmp);
 	else
 		decrypt(rand());
 }
