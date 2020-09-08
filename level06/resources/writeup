@@ -1,8 +1,0 @@
-Two ways to achive this:
-
-Either you do it the stupid way (what is asked by the subject) and reverse the whole binary.
-Or you edit with radare2 the binary to prevent ptrace detection, and then set a breakpoint before the final cmp to see
-what value is expected from serial
-
-login: abcdefg
-serial: 6233754
