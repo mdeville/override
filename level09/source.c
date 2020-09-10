@@ -35,10 +35,8 @@ void    set_username(char *s)
     fgets(username, 128, *reloc_stdin);
 
     i = 0;
-    while (i <= 40)
+    while (i <= 40 && username[i])
     {
-        if (username[i] == '\0')
-            break;
         s[i + 140] = username[i];
         i++;
     }
