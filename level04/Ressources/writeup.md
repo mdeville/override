@@ -36,6 +36,8 @@ cat /home/users/level05/.pass
 ### Method 2: Ret to libc
 
 1. Search for the right addresses
+    - `0xf7e6aed0` is the address of `system`
+    - `0xf7f897ec` is the address of `/bin/sh`
 ```gdb
 (gdb) print system
 $7 = {<text variable, no debug info>} 0xf7e6aed0 <system>
