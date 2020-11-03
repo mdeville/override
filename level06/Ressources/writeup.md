@@ -1,12 +1,12 @@
 # level06
 ## Program behaviour
 
-1. Ask for `username` and `serial`
-2. Test using `ptrace` if running in debugger
+1. Asks for `username` and `serial`
+2. Using `ptrace`, tests if it's running in a debugger
     - if yes, `exit`
-3. Hash the `username` (see source code for details)
-4. Check if `hashed(username)` equals `serial`
-    - if yes run `system("/bin/sh")`
+3. Hashes the `username` (see source code for details)
+4. Checks if `hashed(username)` equals `serial`
+    - if yes runs `system("/bin/sh")`
 
 ## Vulnerability
 
@@ -34,7 +34,7 @@ Breakpoint 1, 0x080487ba in auth ()
 (gdb) set $eax = 1
 ```
 
-2. Set another breakpoint before the comparaison between `serial` and `hashed(username)` and print the content of `hashed(username)`
+2. Set another breakpoint before the comparison between `serial` and `hashed(username)` and print the content of `hashed(username)`
 ```gdb
 (gdb) b *0x08048866
 Breakpoint 2 at 0x8048866
